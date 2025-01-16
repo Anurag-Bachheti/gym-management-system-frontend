@@ -1,24 +1,44 @@
 import React, { useState } from "react";
 
-function Login() {
+function Register() {
   const [email, setEmail] = useState("");
+  const [gymName, setGymName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password });
+    console.log({ email, gymName, username, password });
   };
 
   return (
     <div style={styles.container}>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Email:</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Gym Name:</label>
+          <input
+            type="text"
+            value={gymName}
+            onChange={(e) => setGymName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Username:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
@@ -31,7 +51,7 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
@@ -49,4 +69,4 @@ const styles = {
   },
 };
 
-export default Login;
+export default Register;
