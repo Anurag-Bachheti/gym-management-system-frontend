@@ -5,7 +5,7 @@
 function App() {
   return (
     <>
-
+      <h1> Gym Management System</h1>
     </>
   );
 }
