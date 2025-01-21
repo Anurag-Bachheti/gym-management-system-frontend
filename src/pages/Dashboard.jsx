@@ -4,8 +4,8 @@ import Login from './Login';
 import Signup from './Signup';
 
 import AddMember from '../AdminDashboard/AddMember/AddMember';
-// import MemberDashboard from '../MemberDashboard/';
-// import UserDashboard from './UserDashboard';
+import ViewBillNotification from '../MemberDashboard/ViewBillNotification';
+import ViewBillReceipt from '../MemberDashboard/ViewBillReceipt';
 import UpdateDeleteMember from '../AdminDashboard/UpdateDeleteMember';
 import CreateBills from '../AdminDashboard/CreateBills';
 import FeePackage from '../AdminDashboard/FeePackage';
@@ -22,7 +22,17 @@ const Dashboard = () => {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
-    navigate(`/${selectedRole.toLowerCase()}-dashboard`); // Navigate based on the selected role
+    if (selectedRole === 'Admin') {
+      navigate('/admin-dashboard');
+    } else if (selectedRole === 'Member') {
+      navigate('/member-dashboard');  // This should navigate to /member-dashboard
+    }
+  };
+
+  const handleRoleSelection = (role) => {
+    setSelectedRole(role);
+    setIsLoggedIn(false); // Reset login state when selecting a new role
+    console.log(`Role selected: ${role}`);
   };
 
   // Step 1: Role Selection
@@ -30,15 +40,9 @@ const Dashboard = () => {
     <div>
       <h3>Select a Role to Continue</h3>
       <div style={styles.roleSelection}>
-        <button style={styles.roleSelectionButton} onClick={() => setSelectedRole('Admin')}>
-          Admin
-        </button>
-        <button style={styles.roleSelectionButton} onClick={() => setSelectedRole('Member')}>
-          Member
-        </button>
-        <button style={styles.roleSelectionButton} onClick={() => setSelectedRole('User')}>
-          User
-        </button>
+        <button style={styles.roleSelectionButton} onClick={() => handleRoleSelection('Admin')}>Admin</button>
+        <button style={styles.roleSelectionButton} onClick={() => handleRoleSelection('Member')}>Member</button>
+        <button style={styles.roleSelectionButton} onClick={() => handleRoleSelection('User')}>User</button>
       </div>
     </div>
   );
@@ -85,10 +89,12 @@ const Dashboard = () => {
           <div>
             <h3>Member Dashboard</h3>
             <div style={styles.memberContainers}>
-              
-              <div>View Bill Receipts</div>
-              <div>View Bill Notification</div>
-              <div>Schedule Appointments</div>
+              <button onClick={() => setActiveComponent('ViewBillReceipts')}>View Bill Receipts</button>
+              <button onClick={() => setActiveComponent('ViewBillNotifications')}>View Bill Notifications</button>
+            </div>
+            <div style={styles.componentContainer}>
+              {activeComponent === 'ViewBillReceipts' && <ViewBillReceipt />}
+              {activeComponent === 'ViewBillNotifications' && <ViewBillNotification />}
             </div>
           </div>
         );
@@ -116,9 +122,7 @@ const Dashboard = () => {
         ) : (
           renderRoleSelection() // Show role selection if no role is selected
         )
-      ) : (
-        renderRoleDashboard() // Show the role dashboard after login
-      )}
+      ) : null}
     </div>
   );
 };

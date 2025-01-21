@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 
-function ViewBillNotfication(){
-
-    return(
-        <>
-        <h1> View Bill Notfication </h1>
-        </>
-    )
+function ViewBillNotification() {
+  return (
+    <div>
+      <h2>Bill Notifications</h2>
+      <p>Here are your latest bill notifications.</p>
+    </div>
+  );
 }
-export default ViewBillNotfication;
+
+export default ViewBillNotification;

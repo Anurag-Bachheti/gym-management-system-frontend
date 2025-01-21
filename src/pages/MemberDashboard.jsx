@@ -1,33 +1,25 @@
 import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
-const MemberDashboard = () => {
+function MemberDashboard() {
+  console.log("Member Dashboard is rendered!"); 
   return (
     <div>
-      <h3>Member Dashboard</h3>
-      <div style={styles.memberContainers}>
-        <button style={styles.button}>View Bill Receipts</button>
-        <button style={styles.button}>View Bill Notification</button>
-        <button style={styles.button}>Schedule Appointments</button>
+      <h1>Member Dashboard</h1>
+      <div>
+        <button>
+          <Link to="view-bill-notification">View Bill Notification</Link>
+        </button>
+        <button>
+          <Link to="view-bill-receipt">View Bill Receipt</Link>
+        </button>
+      </div>
+      {/* Outlet for rendering child routes */}
+      <div>
+        <Outlet />
       </div>
     </div>
   );
-};
-
-const styles = {
-  memberContainers: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '10px',
-    marginTop: '20px',
-  },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
-};
+}
 
 export default MemberDashboard;

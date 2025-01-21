@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 
-function ViewBillReceipt(){
-
-    return(
-        <>
-        <h1> View Bill Receipt </h1>
-        </>
-    )
+function ViewBillReceipt() {
+  return (
+    <div>
+      <h2>Bill Receipts</h2>
+      <p>Here are your recent bill receipts.</p>
+    </div>
+  );
 }
+
 export default ViewBillReceipt;
