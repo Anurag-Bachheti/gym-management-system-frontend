@@ -22,10 +22,13 @@ const Dashboard = () => {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
+  
     if (selectedRole === 'Admin') {
       navigate('/admin-dashboard');
     } else if (selectedRole === 'Member') {
-      navigate('/member-dashboard');  // This should navigate to /member-dashboard
+      navigate('/member-dashboard');
+    } else if (selectedRole === 'User') {
+      navigate('/user'); // Navigate to the User Dashboard
     }
   };
 
@@ -98,17 +101,20 @@ const Dashboard = () => {
             </div>
           </div>
         );
-      case 'User':
-        return (
-          <div>
-            <h3>User Dashboard</h3>
-            <div style={styles.userContainers}>
-              <div>View Details</div>
-              <div>Search Records</div>
-              <div>Request Assistance</div>
+        case 'User':
+          return (
+            <div>
+              <h3>User Dashboard</h3>
+              <div style={styles.userContainers}>
+                <button style={styles.button} onClick={() => navigate('/user/view-details')}>
+                  View Details
+                </button>
+                <button style={styles.button} onClick={() => navigate('/user/search-records')}>
+                  Search Records
+                </button>
+              </div>
             </div>
-          </div>
-        );
+          );
       default:
         return <p>Select a role to continue.</p>;
     }

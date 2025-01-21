@@ -7,6 +7,7 @@ import UsersList from './components/UsersList';
 
 import AdminDashboard from "./pages/AdminDashboard";
 import MemberDashboard from './pages/MemberDashboard';
+import UserDashboard from './pages/UserDashboard';
 
 import AddMember from './AdminDashboard/AddMember/AddMember';
 import UpdateDeleteMember from './AdminDashboard/UpdateDeleteMember';
@@ -18,6 +19,9 @@ import Support from './AdminDashboard/SupplementStore';
 import DietDetails from './AdminDashboard/DietDetails';
 import ViewBillNotification from './MemberDashboard/ViewBillNotification';
 import ViewBillReceipt from './MemberDashboard/ViewBillReceipt';
+import SearchRecord from './UserDashboard/SearchRecord';
+import ViewDetail from './UserDashboard/ViewDetail';
+
 
 
 function App() {
@@ -48,6 +52,10 @@ function App() {
         </Route>
         
         {/* Other routes */}
+        <Route path="/user" element={<UserDashboard />} />
+        <Route path="/user/search-records" element={<SearchRecord />} />
+        <Route path="/user/view-details" element={<ViewDetail />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/users-list" element={<UsersList />} />
       </Routes>
