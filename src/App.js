@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import UsersList from './components/UsersList';
 
 import AddMember from './AdminDashboard/AddMember/AddMember';
-import UpdateDeleteMember from './AdminDashboard/AddMember/UpdateDeleteMember';
+import UpdateDeleteMember from './AdminDashboard/UpdateDeleteMember';
 import CreateBills from './AdminDashboard/CreateBills';
 import FeePackage from './AdminDashboard/FeePackage';
 import Notification from './AdminDashboard/Notification';

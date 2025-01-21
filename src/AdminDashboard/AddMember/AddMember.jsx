@@ -10,9 +10,9 @@ const AddMember = () => {
     createdAt: new Date().toISOString().split('T')[0], // Default to today's date
   });
 
-  const [ setName] = useState("");
-  const [ setAge] = useState("");
-  const [ setEmail] = useState("");
+  const [ name, setName] = useState("");
+  const [ age, setAge] = useState("");
+  const [ email, setEmail] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +22,7 @@ const AddMember = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Member Data:', formData);
+    // console.log('Member Data:', formData);
     // Here you would send the data to the backend
     
 
@@ -41,7 +41,9 @@ const AddMember = () => {
           setAge('');
           setEmail('');
         } else {
-          alert('Failed to add member');
+          const errorData = await response.json();
+          console.error('Error:', errorData);
+          alert('Failed to add member: ' + (errorData.error || 'Unknown error'));
         }
       } catch (err) {
         console.error(err);
