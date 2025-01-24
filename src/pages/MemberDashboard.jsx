@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 function MemberDashboard() {
-  console.log("Member Dashboard is rendered!"); 
+  // console.log("Member Dashboard is rendered!"); 
   return (
     <div>
       <h1>Member Dashboard</h1>

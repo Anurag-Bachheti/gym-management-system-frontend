@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom'; // Hook to navigate programmatic
 import Login from './Login';
 import Signup from './Signup';
 
-import AddMember from '../AdminDashboard/AddMember/AddMember';
-import ViewBillNotification from '../MemberDashboard/ViewBillNotification';
-import ViewBillReceipt from '../MemberDashboard/ViewBillReceipt';
-import UpdateDeleteMember from '../AdminDashboard/UpdateDeleteMember';
-import CreateBills from '../AdminDashboard/CreateBills';
-import FeePackage from '../AdminDashboard/FeePackage';
-import Notification from '../AdminDashboard/Notification';
-import ReportExport from '../AdminDashboard/ReportExport';
-import Support from '../AdminDashboard/SupplementStore';
-import DietDetails from '../AdminDashboard/DietDetails';
+import AddMember from '../AdminDashboardPage/AddMember';
+import ViewBillNotification from '../MemberDashboardPage/ViewBillNotification';
+import ViewBillReceipt from '../MemberDashboardPage/ViewBillReceipt';
+import UpdateDeleteMember from '../AdminDashboardPage/UpdateDeleteMember';
+import CreateBills from '../AdminDashboardPage/CreateBills';
+import FeePackage from '../AdminDashboardPage/FeePackage';
+import Notification from '../AdminDashboardPage/Notification';
+import ReportExport from '../AdminDashboardPage/ReportExport';
+import Support from '../AdminDashboardPage/SupplementStore';
+import DietDetails from '../AdminDashboardPage/DietDetails';
 
 const Dashboard = () => {
   const [isLoggedin, setIsLoggedIn] = useState(false);
@@ -122,17 +122,16 @@ const Dashboard = () => {
 
   return (
     <div style={styles.dashboard}>
-      {!isLoggedin ? (
-        selectedRole ? (
-          renderLoginSignup() // Show Login/Signup after selecting role
-        ) : (
-          renderRoleSelection() // Show role selection if no role is selected
-        )
-      ) : null}
-    </div>
-  );
+    {isLoggedin ? (
+      renderRoleDashboard()  // After login, it should navigate automatically based on role
+    ) : selectedRole ? (
+      renderLoginSignup() // Show Login/Signup after selecting role
+    ) : (
+      renderRoleSelection() // Show role selection if no role is selected
+    )}
+  </div>
+);
 };
-
 const styles = {
   dashboard: {
     textAlign: 'center',

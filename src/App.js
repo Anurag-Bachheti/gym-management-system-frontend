@@ -9,18 +9,18 @@ import AdminDashboard from "./pages/AdminDashboard";
 import MemberDashboard from './pages/MemberDashboard';
 import UserDashboard from './pages/UserDashboard';
 
-import AddMember from './AdminDashboard/AddMember/AddMember';
-import UpdateDeleteMember from './AdminDashboard/UpdateDeleteMember';
-import CreateBills from './AdminDashboard/CreateBills';
-import FeePackage from './AdminDashboard/FeePackage';
-import Notification from './AdminDashboard/Notification';
-import ReportExport from './AdminDashboard/ReportExport';
-import Support from './AdminDashboard/SupplementStore';
-import DietDetails from './AdminDashboard/DietDetails';
-import ViewBillNotification from './MemberDashboard/ViewBillNotification';
-import ViewBillReceipt from './MemberDashboard/ViewBillReceipt';
-import SearchRecord from './UserDashboard/SearchRecord';
-import ViewDetail from './UserDashboard/ViewDetail';
+import AddMember from './AdminDashboardPage/AddMember';
+import UpdateDeleteMember from './AdminDashboardPage/UpdateDeleteMember';
+import CreateBills from './AdminDashboardPage/CreateBills';
+import FeePackage from './AdminDashboardPage/FeePackage';
+import Notification from './AdminDashboardPage/Notification';
+import ReportExport from './AdminDashboardPage/ReportExport';
+import Support from './AdminDashboardPage/SupplementStore';
+import DietDetails from './AdminDashboardPage/DietDetails';
+import ViewBillNotification from './MemberDashboardPage/ViewBillNotification';
+import ViewBillReceipt from './MemberDashboardPage/ViewBillReceipt';
+import SearchRecord from './UserDashboardPage/SearchRecord';
+import ViewDetail from './UserDashboardPage/ViewDetail';
 
 
 

@@ -14,7 +14,14 @@ const Login = ({ onLoginSuccess }) => {
         onLoginSuccess(); // Call the success callback
       }
       localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
-      navigate("/admin-dashboard", { state: { email } });
+      if (email === 'admin@example.com') {
+        navigate("/admin-dashboard", { state: { email, role: 'admin' } });
+      } else if (email === 'member@example.com') {
+        navigate("/member-dashboard", { state: { email, role: 'member' } });
+      } else {
+        navigate("/user-dashboard", { state: { email, role: 'user' } });
+      }
+  
       setEmail('');
       setPassword('');
     } else {

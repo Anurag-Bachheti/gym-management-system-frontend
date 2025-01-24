@@ -10,9 +10,9 @@ const AddMember = () => {
     createdAt: new Date().toISOString().split('T')[0], // Default to today's date
   });
 
-  const [ name, setName] = useState("");
-  const [ age, setAge] = useState("");
-  const [ email, setEmail] = useState("");
+  const [setName] = useState("");
+  const [setAge] = useState("");
+  const [setEmail] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
