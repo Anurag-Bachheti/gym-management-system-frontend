@@ -1,25 +1,42 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet ,useNavigate } from 'react-router-dom';
 
-function MemberDashboard() {
-  // console.log("Member Dashboard is rendered!"); 
+const MemberDashboard = () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div style={styles.container}>
       <h1>Member Dashboard</h1>
-      <div>
-        <button>
-          <Link to="view-bill-notification">View Bill Notification</Link>
+      <div style={styles.buttonContainer}>
+        <button style={styles.button} onClick={() => navigate('/member-dashboard/view/billnotification')}>
+          View Bill Notifications
         </button>
-        <button>
-          <Link to="view-bill-receipt">View Bill Receipt</Link>
+        <button style={styles.button} onClick={() => navigate('/member-dashboard/view/billreceipt')}>
+          View Bill Receipts
         </button>
       </div>
-      {/* Outlet for rendering child routes */}
-      <div>
-        <Outlet />
-      </div>
+      <Outlet /> {/* This renders the child routes */}
     </div>
   );
-}
+};
+
+const styles = {
+  memberContainers: {
+    padding: '20px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    gap: '20px',
+    marginTop: '20px',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    backgroundColor: '#f5f5f5',
+  },
+};
 
 export default MemberDashboard;

@@ -11,6 +11,8 @@ const UpdateDeleteMember = () => {
     phone: "",
     membershipStatus: "active",
     membershipType: "Monthly",
+    amountPaid: "no",
+    nextPaymentDate: "",
     createdAt: "",
   });
 
@@ -47,6 +49,8 @@ const UpdateDeleteMember = () => {
       phone: member.phone || "",
       membershipStatus: member.membershipStatus || "active",
       membershipType: member.membershipType || "Monthly",
+      amountPaid: member.amountPaid || "no",
+      nextPaymentDate: member.nextPaymentDate || "",
       createdAt: member.createdAt ? member.createdAt.split("T")[0] : "",
     });
   };
@@ -194,6 +198,28 @@ const UpdateDeleteMember = () => {
                     <option value="Monthly">Monthly</option>
                     <option value="Yearly">Yearly</option>
                   </select>
+                </div>
+                <div style={styles.formGroup}>
+                  <label>Amount Paid</label>
+                  <select
+                    name="amountPaid"
+                    value={updatedMember.amountPaid}
+                    onChange={handleInputChange}
+                    disabled={!isEditable}
+                  >
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+                <div style={styles.formGroup}>
+                  <label>Next Payment Date</label>
+                  <input
+                    type="date"
+                    name="nextPaymentDate"
+                    value={updatedMember.nextPaymentDate}
+                    onChange={handleInputChange}
+                    disabled={!isEditable}
+                  />
                 </div>
                 <div style={styles.formGroup}>
                   <label>Created At</label>

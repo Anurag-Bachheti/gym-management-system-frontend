@@ -35,6 +35,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
 
         {/* Admin Dashoard routes */}
+        <Route path="/login" element={<Login />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />}/>
         <Route path="/add-member" element={<AddMember />} />
         <Route path="/update-delete-member" element={<UpdateDeleteMember />} />
@@ -47,8 +48,9 @@ function App() {
 
         {/* MemberDashboard routes */}
         <Route path="/member-dashboard" element={<MemberDashboard />}>
-          <Route path="view-bill-notification" element={<ViewBillNotification />} />
-          <Route path="view-bill-receipt" element={<ViewBillReceipt />} />
+        <Route index element={<p>Select an option from the dashboard</p>} />
+        <Route path="view/billnotification" element={<ViewBillNotification />} />
+        <Route path="view/billreceipt" element={<ViewBillReceipt />} />
         </Route>
         
         {/* Other routes */}
@@ -56,7 +58,6 @@ function App() {
         <Route path="/user/search-records" element={<SearchRecord />} />
         <Route path="/user/view-details" element={<ViewDetail />} />
 
-        <Route path="/login" element={<Login />} />
         <Route path="/users-list" element={<UsersList />} />
       </Routes>
     </Router>

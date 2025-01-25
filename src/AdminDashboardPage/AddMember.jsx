@@ -6,13 +6,15 @@ const AddMember = () => {
     email: '',
     phone: '',
     membershipStatus: 'active',
+    amountPaid: 'no', // Default to 'no'
+    nextPaymentDate: '', // New field
     membershipType: 'Monthly',
     createdAt: new Date().toISOString().split('T')[0], // Default to today's date
   });
 
-  const [setName] = useState("");
-  const [setAge] = useState("");
-  const [setEmail] = useState("");
+  // const [setName] = useState("");
+  // const [setAge] = useState("");
+  // const [setEmail] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,10 +24,6 @@ const AddMember = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // console.log('Member Data:', formData);
-    // Here you would send the data to the backend
-    
-
     try {
         const response = await fetch('http://localhost:5000/api/users', {
           method: 'POST',
@@ -37,9 +35,16 @@ const AddMember = () => {
         
         if (response.ok) {
           alert('Member added successfully');
-          setName('');
-          setAge('');
-          setEmail('');
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            membershipStatus: 'active',
+            membershipType: 'Monthly',
+            amountPaid: 'no',
+            nextPaymentDate: '',
+            createdAt: new Date().toISOString().split('T')[0],
+          });
         } else {
           const errorData = await response.json();
           console.error('Error:', errorData);
@@ -103,9 +108,32 @@ const AddMember = () => {
             value={formData.membershipType}
             onChange={handleChange}
           >
-            <option value="Monthly">Monthly</option>
+           <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Half-Yearly">Half-Yearly</option>
             <option value="Yearly">Yearly</option>
           </select>
+        </div>
+        <div>
+          <label>Amount Paid:</label>
+          <select
+            name="amountPaid"
+            value={formData.amountPaid}
+            onChange={handleChange}
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div>
+          <label>Next Payment Date:</label>
+          <input
+            type="date"
+            name="nextPaymentDate"
+            value={formData.nextPaymentDate}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label>Created At:</label>

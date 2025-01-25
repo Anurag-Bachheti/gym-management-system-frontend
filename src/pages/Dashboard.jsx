@@ -87,20 +87,24 @@ const Dashboard = () => {
           </div>
         </div>
         );
-      case 'Member':
-        return (
-          <div>
-            <h3>Member Dashboard</h3>
-            <div style={styles.memberContainers}>
-              <button onClick={() => setActiveComponent('ViewBillReceipts')}>View Bill Receipts</button>
-              <button onClick={() => setActiveComponent('ViewBillNotifications')}>View Bill Notifications</button>
+        case 'Member':
+          return (
+            <div>
+              <h3>Member Dashboard</h3>
+              <div style={styles.memberContainers}>
+                <button style={styles.button} onClick={() => setActiveComponent('ViewBillReceipts')}>
+                  View Bill Receipts
+                </button>
+                <button style={styles.button} onClick={() => setActiveComponent('ViewBillNotifications')}>
+                  View Bill Notifications
+                </button>
+              </div>
+              <div style={styles.componentContainer}>
+                {activeComponent === 'ViewBillReceipts' && <ViewBillReceipt />}
+                {activeComponent === 'ViewBillNotifications' && <ViewBillNotification />}
+              </div>
             </div>
-            <div style={styles.componentContainer}>
-              {activeComponent === 'ViewBillReceipts' && <ViewBillReceipt />}
-              {activeComponent === 'ViewBillNotifications' && <ViewBillNotification />}
-            </div>
-          </div>
-        );
+          );
         case 'User':
           return (
             <div>

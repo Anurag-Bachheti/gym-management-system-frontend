@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 const AdminDashboard = () => {
   const location = useLocation();
   const email = location.state?.email;
+  
 
   return (
     <div>

@@ -15,17 +15,12 @@ const Login = ({ onLoginSuccess }) => {
       }
       localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
       if (email === 'admin@example.com') {
-        navigate("/admin-dashboard", { state: { email, role: 'admin' } });
+        navigate(`/admin-dashboard?email=${email}&role=admin`);
       } else if (email === 'member@example.com') {
-        navigate("/member-dashboard", { state: { email, role: 'member' } });
+        navigate(`/member-dashboard?email=${email}&role=member`);
       } else {
-        navigate("/user-dashboard", { state: { email, role: 'user' } });
+        navigate(`/user-dashboard?email=${email}&role=user`);
       }
-  
-      setEmail('');
-      setPassword('');
-    } else {
-      alert('Please fill in all fields');
     }
   };
 
