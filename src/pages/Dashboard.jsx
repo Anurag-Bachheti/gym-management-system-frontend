@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Hook to navigate programmatically
 import Login from './Login';
-import Signup from './Signup';
+// import Signup from './Signup';
 
 import AddMember from '../AdminDashboardPage/AddMember';
 import ViewBillNotification from '../MemberDashboardPage/ViewBillNotification';
@@ -50,12 +50,12 @@ const Dashboard = () => {
     </div>
   );
 
-  // Step 2: Render Login/Signup based on selected role
-  const renderLoginSignup = () => (
+  // Step 2: Render Login based on selected role
+  const renderLogin = () => (
     <div>
-      <h3>{selectedRole} Login/Signup</h3>
+      <h3>{selectedRole} Login</h3>
       <Login onLoginSuccess={handleLoginSuccess} />
-      <Signup />
+      {/* //<Signup /> */}
     </div>
   );
 
@@ -129,7 +129,7 @@ const Dashboard = () => {
     {isLoggedin ? (
       renderRoleDashboard()  // After login, it should navigate automatically based on role
     ) : selectedRole ? (
-      renderLoginSignup() // Show Login/Signup after selecting role
+      renderLogin() // Show Login after selecting role
     ) : (
       renderRoleSelection() // Show role selection if no role is selected
     )}
