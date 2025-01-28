@@ -7,7 +7,7 @@ import AddMember from '../AdminDashboardPage/AddMember';
 import ViewBillNotification from '../MemberDashboardPage/ViewBillNotification';
 import ViewBillReceipt from '../MemberDashboardPage/ViewBillReceipt';
 import UpdateDeleteMember from '../AdminDashboardPage/UpdateDeleteMember';
-import CreateBills from '../AdminDashboardPage/CreateBills';
+import CreateBill from '../AdminDashboardPage/CreateBill';
 import FeePackage from '../AdminDashboardPage/FeePackage';
 import Notification from '../AdminDashboardPage/Notification';
 import ReportExport from '../AdminDashboardPage/ReportExport';
@@ -68,7 +68,7 @@ const Dashboard = () => {
           <div style={styles.adminContainers}>
             <button onClick={() => setActiveComponent('AddMember')}>Add Member</button>
             <button onClick={() => setActiveComponent('UpdateDeleteMember')}>Update/Delete Member</button>
-            <button onClick={() => setActiveComponent('CreateBills')}>Create Bills</button>
+            <button onClick={() => setActiveComponent('CreateBill')}>Create Bill</button>
             <button onClick={() => setActiveComponent('FeePackage')}>Assign Fee Package</button>
             <button onClick={() => setActiveComponent('Notification')}>Assign Notification</button>
             <button onClick={() => setActiveComponent('ReportExport')}>Report Export</button>
@@ -78,7 +78,7 @@ const Dashboard = () => {
           <div style={styles.componentContainer}>
             {activeComponent === 'AddMember' && <AddMember />}
             {activeComponent === 'UpdateDeleteMember' && <UpdateDeleteMember />}
-            {activeComponent === 'CreateBills' && <CreateBills />}
+            {activeComponent === 'CreateBill' && <CreateBill />}
             {activeComponent === 'FeePackage' && <FeePackage />}
             {activeComponent === 'Notification' && <Notification />}
             {activeComponent === 'ReportExport' && <ReportExport />}

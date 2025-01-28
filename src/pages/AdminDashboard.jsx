@@ -18,8 +18,8 @@ const AdminDashboard = () => {
         <Link to="/update-delete-member">
           <button>Update/Delete Member</button>
         </Link>
-        <Link to="/create-bills">
-          <button>Create Bills</button>
+        <Link to="/admin/create-bill">
+          <button>Create Bill</button>
         </Link>
         <Link to="/assign-fee-package">
           <button>Assign Fee Package</button>

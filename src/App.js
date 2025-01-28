@@ -11,7 +11,7 @@ import UserDashboard from './pages/UserDashboard';
 
 import AddMember from './AdminDashboardPage/AddMember';
 import UpdateDeleteMember from './AdminDashboardPage/UpdateDeleteMember';
-import CreateBills from './AdminDashboardPage/CreateBills';
+import CreateBill from './AdminDashboardPage/CreateBill';
 import FeePackage from './AdminDashboardPage/FeePackage';
 import Notification from './AdminDashboardPage/Notification';
 import ReportExport from './AdminDashboardPage/ReportExport';
@@ -39,7 +39,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />}/>
         <Route path="/add-member" element={<AddMember />} />
         <Route path="/update-delete-member" element={<UpdateDeleteMember />} />
-        <Route path="/create-bills" element={<CreateBills />} />
+        <Route path="/admin/create-bill" element={<CreateBill />} />
         <Route path="/assign-fee-package" element={<FeePackage />} />
         <Route path="/assign-notification" element={<Notification />} />
         <Route path="/report-export" element={<ReportExport />} />
