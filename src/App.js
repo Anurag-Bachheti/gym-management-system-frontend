@@ -55,6 +55,7 @@ function App() {
         
         {/* Other routes */}
         <Route path="/user" element={<UserDashboard />} />
+        <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/user/search-records" element={<SearchRecord />} />
         <Route path="/user/view-details" element={<ViewDetail />} />
 

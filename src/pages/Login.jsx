@@ -8,21 +8,51 @@ const Login = ({ onLoginSuccess }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+  
+    const adminCredentials = {
+      email: 'anuragbachheti1999@gmail.com',
+      password: 'ED5RA8#$p', // Replace with the actual admin password
+    };
+  
+    if (email === adminCredentials.email && password === adminCredentials.password) {
+      alert('Admin Login Successful');
+      localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
+  
+      // Allow admin to choose the dashboard to navigate
+      const role = prompt(
+        'Admin has access to all dashboards. Enter "admin", "member", or "user" to choose a dashboard:',
+        'admin'
+      );
+  
+      if (role === 'admin') {
+        navigate(`/admin-dashboard?email=${email}&role=admin`);
+      } else if (role === 'member') {
+        navigate(`/member-dashboard?email=${email}&role=member`);
+      } else if (role === 'user') {
+        navigate(`/user-dashboard?email=${email}&role=user`);
+      } else {
+        alert('Invalid dashboard selection. Please try again.');
+      }
+      return;
+    }
+  
+    // Logic for regular users or members
     if (email && password) {
       alert('Login Successful');
-      if (typeof onLoginSuccess === 'function') {
-        onLoginSuccess(); // Call the success callback
-      }
       localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
-      if (email === 'admin@example.com') {
-        navigate(`/admin-dashboard?email=${email}&role=admin`);
-      } else if (email === 'member@example.com') {
+  
+      if (email === 'member@example.com') {
         navigate(`/member-dashboard?email=${email}&role=member`);
-      } else {
+      } else if (email === 'user@example.com') {
         navigate(`/user-dashboard?email=${email}&role=user`);
+      } else {
+        alert('Invalid credentials or unauthorized access.');
       }
+    } else {
+      alert('Please enter valid email and password.');
     }
   };
+  
 
   return (
     <div style={styles.loginContainer}>
