@@ -5,16 +5,13 @@ const AddMember = () => {
     name: '',
     email: '',
     phone: '',
+    password:'',
     membershipStatus: 'active',
     amountPaid: 'no', // Default to 'no'
     nextPaymentDate: '', // New field
     membershipType: 'Monthly',
     createdAt: new Date().toISOString().split('T')[0], // Default to today's date
   });
-
-  // const [setName] = useState("");
-  // const [setAge] = useState("");
-  // const [setEmail] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +36,7 @@ const AddMember = () => {
             name: '',
             email: '',
             phone: '',
+            password:'',
             membershipStatus: 'active',
             membershipType: 'Monthly',
             amountPaid: 'no',
@@ -91,6 +89,10 @@ const AddMember = () => {
           />
         </div>
         <div>
+          <label>Password:</label> {/* Added password input */}
+          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+        </div>
+        <div>
           <label>Membership Status:</label>
           <select
             name="membershipStatus"
@@ -127,13 +129,7 @@ const AddMember = () => {
         </div>
         <div>
           <label>Next Payment Date:</label>
-          <input
-            type="date"
-            name="nextPaymentDate"
-            value={formData.nextPaymentDate}
-            onChange={handleChange}
-            required
-          />
+          <input type="date" name="nextPaymentDate" value={formData.nextPaymentDate} onChange={handleChange} required />
         </div>
         <div>
           <label>Created At:</label>
