@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import axios from "axios"; // Import axios
 
 const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
@@ -9,11 +10,13 @@ const Login = ({ onLoginSuccess }) => {
   const handleLogin = (e) => {
     e.preventDefault();
   
+    // console.log("Attempting login for:", email);
+
     const adminCredentials = {
       email: 'anuragbachheti1999@gmail.com',
       password: 'ED5RA8#$p', // Replace with the actual admin password
     };
-  
+    
     if (email === adminCredentials.email && password === adminCredentials.password) {
       alert('Admin Login Successful');
       localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
@@ -23,7 +26,7 @@ const Login = ({ onLoginSuccess }) => {
         'Admin has access to all dashboards. Enter "admin", "member", or "user" to choose a dashboard:',
         'admin'
       );
-  
+      
       if (role === 'admin') {
         navigate(`/admin-dashboard?email=${email}&role=admin`);
       } else if (role === 'member') {
@@ -51,6 +54,7 @@ const Login = ({ onLoginSuccess }) => {
     } else {
       alert('Please enter valid email and password.');
     }
+
   };
   
 

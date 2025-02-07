@@ -5,7 +5,7 @@ const AddMember = () => {
     name: '',
     email: '',
     phone: '',
-    password:'',
+    password: '',
     membershipStatus: 'active',
     amountPaid: 'no', // Default to 'no'
     nextPaymentDate: '', // New field
@@ -19,40 +19,40 @@ const AddMember = () => {
     console.log("On change called", formData);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch('http://localhost:5000/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch('http://localhost:5000/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Member added successfully');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          password: '',
+          membershipStatus: 'active',
+          membershipType: 'Monthly',
+          amountPaid: 'no',
+          nextPaymentDate: '',
+          createdAt: new Date().toISOString().split('T')[0],
         });
-        
-        if (response.ok) {
-          alert('Member added successfully');
-          setFormData({
-            name: '',
-            email: '',
-            phone: '',
-            password:'',
-            membershipStatus: 'active',
-            membershipType: 'Monthly',
-            amountPaid: 'no',
-            nextPaymentDate: '',
-            createdAt: new Date().toISOString().split('T')[0],
-          });
-        } else {
-          const errorData = await response.json();
-          console.error('Error:', errorData);
-          alert('Failed to add member: ' + (errorData.error || 'Unknown error'));
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Error adding member');
+      } else {
+        const errorData = await response.json();
+        console.error('Error:', errorData);
+        alert('Failed to add member: ' + (errorData.error || 'Unknown error'));
       }
+    } catch (err) {
+      console.error(err);
+      alert('Error adding member');
     }
+  }
 
   return (
     <div style={{ padding: '20px' }}>
@@ -110,7 +110,7 @@ const AddMember = () => {
             value={formData.membershipType}
             onChange={handleChange}
           >
-           <option value="Monthly">Monthly</option>
+            <option value="Monthly">Monthly</option>
             <option value="Quarterly">Quarterly</option>
             <option value="Half-Yearly">Half-Yearly</option>
             <option value="Yearly">Yearly</option>

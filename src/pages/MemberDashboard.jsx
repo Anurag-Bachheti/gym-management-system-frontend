@@ -1,8 +1,33 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet ,useNavigate } from 'react-router-dom';
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
+  const [billreceipt, setBillReceipt] = useState('')
+
+  useEffect(() => {
+    const fetchBillReceipt = async () => {
+      const token = localStorage.getItem('token'); // Get stored token
+  
+      if (!token) {
+        alert('Unauthorized Access');
+        return;
+      }
+  
+      const response = await fetch('http://localhost:5000/api/bill-receipt', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setBillReceipt(data);
+      } else {
+        console.error('Failed to fetch bill receipt');
+      }
+    };
+  
+    fetchBillReceipt();
+  }, []);
 
   return (
     <div style={styles.container}>
