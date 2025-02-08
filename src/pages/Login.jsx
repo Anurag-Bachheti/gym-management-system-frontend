@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import axios from "axios"; // Import axios
+import axios from "axios"; // Import axios
 
 const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
-  
-    // console.log("Attempting login for:", email);
+    console.log("Attempting login for:", email);
+
 
     const adminCredentials = {
       email: 'anuragbachheti1999@gmail.com',
@@ -19,7 +19,7 @@ const Login = ({ onLoginSuccess }) => {
     
     if (email === adminCredentials.email && password === adminCredentials.password) {
       alert('Admin Login Successful');
-      localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
+      localStorage.setItem('authToken', 'admin-token'); // Store token
   
       // Allow admin to choose the dashboard to navigate
       const role = prompt(
@@ -27,69 +27,109 @@ const Login = ({ onLoginSuccess }) => {
         'admin'
       );
       
-      if (role === 'admin') {
-        navigate(`/admin-dashboard?email=${email}&role=admin`);
-      } else if (role === 'member') {
-        navigate(`/member-dashboard?email=${email}&role=member`);
-      } else if (role === 'user') {
-        navigate(`/user-dashboard?email=${email}&role=user`);
+      console.log("Admin selected role:", role);
+
+       if (role === "admin") {
+        navigate("/admin-dashboard");
+      } else if (role === "member") {
+        navigate("/member-dashboard");
+      } else if (role === "user") {
+        navigate("/user-dashboard");
       } else {
-        alert('Invalid dashboard selection. Please try again.');
+        alert("Invalid selection. Try again.");
       }
       return;
     }
   
     // Logic for regular users or members
-    if (email && password) {
-      alert('Login Successful');
-      localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
+  //   if (email && password) {
+  //     alert('Login Successful');
+  //     localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
   
-      if (email === 'member@example.com') {
-        navigate(`/member-dashboard?email=${email}&role=member`);
-      } else if (email === 'user@example.com') {
-        navigate(`/user-dashboard?email=${email}&role=user`);
+  //     if (email === 'member@example.com') {
+  //       navigate(`/member-dashboard?email=${email}&role=member`);
+  //     } else if (email === 'user@example.com') {
+  //       navigate(`/user-dashboard?email=${email}&role=user`);
+  //     } else {
+  //       alert('Invalid credentials or unauthorized access.');
+  //     }
+  //   } else {
+  //     alert('Please enter valid email and password.');
+  //   }
+
+  // };
+  
+
+  try {
+    const response = await axios.post("http://localhost:5000/api/login", {
+      email,
+      password,
+    });
+
+    console.log("Server Response:", response.data);
+
+    if (response.status === 200) {
+      alert("Login Successful");
+
+      const { token, user } = response.data; // Extract token & role
+      const {role} = user;
+      
+
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userRole", role);
+
+      console.log("User Role:", role);
+
+      if (role === "member") {
+        navigate("/member-dashboard");
+      } else if (role === "user") {
+        navigate("/user-dashboard");
       } else {
-        alert('Invalid credentials or unauthorized access.');
+        alert("Invalid role assigned. Please contact support.");
       }
     } else {
-      alert('Please enter valid email and password.');
+      alert("Invalid credentials or unauthorized access.");
     }
+  } catch (error) {
+    console.error("Login Error:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Login failed. Please try again.");
+  }
+};
 
-  };
-  
 
-  return (
-    <div style={styles.loginContainer}>
-      <h3 style={styles.loginTitle}>Login</h3>
-      <form style={styles.loginForm} onSubmit={handleLogin}>
-        <div style={styles.formGroup}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="login-password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button style={styles.loginButton} type="submit">
-          Login
-        </button>
-      </form>
-    </div>
-  );
+
+return (
+  <div style={styles.loginContainer}>
+    <h3 style={styles.loginTitle}>Login</h3>
+    <form style={styles.loginForm} onSubmit={handleLogin}>
+      <div style={styles.formGroup}>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <div style={styles.formGroup}>
+        <label htmlFor="password">Password</label>
+        <input
+          id="login-password"
+          type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <button style={styles.loginButton} type="submit">
+        Login
+      </button>
+    </form>
+  </div>
+);
 };
 
 const styles = {
