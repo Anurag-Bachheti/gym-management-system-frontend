@@ -6,97 +6,79 @@ const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const handleLogin = async(e) => {
     e.preventDefault();
-    console.log("Attempting login for:", email);
+    if (isSubmitting) return; // Prevent multiple submissions
+    setIsSubmitting(true);
 
-
-    const adminCredentials = {
-      email: 'anuragbachheti1999@gmail.com',
-      password: 'ED5RA8#$p', // Replace with the actual admin password
-    };
-    
-    if (email === adminCredentials.email && password === adminCredentials.password) {
-      alert('Admin Login Successful');
-      localStorage.setItem('authToken', 'admin-token'); // Store token
+    try {
+      // Check for admin credentials
+      const adminCredentials = {
+        email: 'anuragbachheti1999@gmail.com',
+        password: 'ED5RA8#$p', // Replace with the actual admin password
+      };
   
-      // Allow admin to choose the dashboard to navigate
-      const role = prompt(
-        'Admin has access to all dashboards. Enter "admin", "member", or "user" to choose a dashboard:',
-        'admin'
-      );
-      
-      console.log("Admin selected role:", role);
-
-       if (role === "admin") {
-        navigate("/admin-dashboard");
-      } else if (role === "member") {
-        navigate("/member-dashboard");
-      } else if (role === "user") {
-        navigate("/user-dashboard");
+      if (email === adminCredentials.email && password === adminCredentials.password) {
+        alert('Admin Login Successful');
+        localStorage.setItem('authToken', 'admin-token'); // Store token
+  
+        // Allow admin to choose the dashboard to navigate
+        const role = prompt(
+          'Admin has access to all dashboards. Enter "admin", "member", or "user" to choose a dashboard:',
+          'admin'
+        );
+  
+        console.log("Admin selected role:", role);
+  
+        if (role === "admin") {
+          navigate("/admin-dashboard");
+        } else if (role === "member") {
+          navigate("/member-dashboard");
+        } else if (role === "user") {
+          navigate("/user-dashboard");
+        } else {
+          alert("Invalid selection. Try again.");
+        }
       } else {
-        alert("Invalid selection. Try again.");
+        // Proceed with regular user login
+        const response = await axios.post("http://localhost:5000/api/login", {
+          email,
+          password,
+        });
+  
+        console.log("Server Response:", response.data);
+  
+        if (response.status === 200) {
+          alert("Login Successful");
+  
+          const { token, user } = response.data; // Extract token & user
+          localStorage.setItem("authToken", token);
+          localStorage.setItem("userRole", user.role);
+          localStorage.setItem("userName", user.name);
+  
+          console.log("User Role:", user.role);
+  
+          if (user.role === "member") {
+            navigate("/member-dashboard");
+          } else if (user.role === "user") {
+            navigate("/user-dashboard");
+          } else {
+            alert("Invalid role assigned. Please contact support.");
+          }
+        } else {
+          // alert("Invalid credentials or unauthorized access.");
+        }
       }
-      return;
+    } catch (error) {
+      console.error("Login Error:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-  
-    // Logic for regular users or members
-  //   if (email && password) {
-  //     alert('Login Successful');
-  //     localStorage.setItem('authToken', 'mock-jwt-token'); // Store token
-  
-  //     if (email === 'member@example.com') {
-  //       navigate(`/member-dashboard?email=${email}&role=member`);
-  //     } else if (email === 'user@example.com') {
-  //       navigate(`/user-dashboard?email=${email}&role=user`);
-  //     } else {
-  //       alert('Invalid credentials or unauthorized access.');
-  //     }
-  //   } else {
-  //     alert('Please enter valid email and password.');
-  //   }
-
-  // };
-  
-
-  try {
-    const response = await axios.post("http://localhost:5000/api/login", {
-      email,
-      password,
-    });
-
-    console.log("Server Response:", response.data);
-
-    if (response.status === 200) {
-      alert("Login Successful");
-
-      const { token, user } = response.data; // Extract token & role
-      const {role} = user;
-      
-
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("userRole", role);
-
-      console.log("User Role:", role);
-
-      if (role === "member") {
-        navigate("/member-dashboard");
-      } else if (role === "user") {
-        navigate("/user-dashboard");
-      } else {
-        alert("Invalid role assigned. Please contact support.");
-      }
-    } else {
-      alert("Invalid credentials or unauthorized access.");
-    }
-  } catch (error) {
-    console.error("Login Error:", error.response?.data || error.message);
-    alert(error.response?.data?.message || "Login failed. Please try again.");
-  }
-};
-
-
+  };
 
 return (
   <div style={styles.loginContainer}>
@@ -124,8 +106,8 @@ return (
           required
         />
       </div>
-      <button style={styles.loginButton} type="submit">
-        Login
+      <button type="submit" disabled={isSubmitting} style={styles.loginButton} >
+        {isSubmitting ? "Logging in..." : "Login"}
       </button>
     </form>
   </div>

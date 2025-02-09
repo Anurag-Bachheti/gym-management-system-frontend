@@ -1,37 +1,41 @@
 import { useEffect, useState } from 'react';
-import { Outlet ,useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const MemberDashboard = () => {
   const navigate = useNavigate();
-  const [billreceipt, setBillReceipt] = useState('')
+  const [,setBillReceipt] = useState('')
+  const [userName, setUserName] = useState('')
 
   useEffect(() => {
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  // }, []);
     const fetchBillReceipt = async () => {
       const token = localStorage.getItem('token'); // Get stored token
-  
-      if (!token) {
-        alert('Unauthorized Access');
-        return;
-      }
-  
-      const response = await fetch('http://localhost:5000/api/bill-receipt', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        setBillReceipt(data);
-      } else {
-        console.error('Failed to fetch bill receipt');
+
+      if (token) {
+
+        const response = await fetch('http://localhost:5000/api/bill-receipt', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setBillReceipt(data);
+        } else {
+          console.error('Failed to fetch bill receipt');
+        }
       }
     };
-  
+
     fetchBillReceipt();
   }, []);
 
   return (
     <div style={styles.container}>
-      <h1>Member Dashboard</h1>
+      <h1> Welcome, {userName}...! </h1>
       <div style={styles.buttonContainer}>
         <button style={styles.button} onClick={() => navigate('/member-dashboard/view/billnotification')}>
           View Bill Notifications

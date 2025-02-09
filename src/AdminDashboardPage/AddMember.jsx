@@ -76,6 +76,7 @@ const AddMember = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            autoComplete='email'
           />
         </div>
         <div>
@@ -86,11 +87,17 @@ const AddMember = () => {
             value={formData.phone}
             onChange={handleChange}
             required
+            autocomplete="tel"
           />
         </div>
         <div>
           <label>Password:</label> {/* Added password input */}
-          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+          <input type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          autoComplete='current-password'/>
         </div>
         <div>
           <label>Membership Status:</label>
