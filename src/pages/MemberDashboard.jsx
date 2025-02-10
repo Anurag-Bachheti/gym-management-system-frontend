@@ -35,7 +35,7 @@ const MemberDashboard = () => {
 
   return (
     <div style={styles.container}>
-      <h1> Welcome, {userName}...! </h1>
+      <h1> Welcome, {userName}! </h1>
       <div style={styles.buttonContainer}>
         <button style={styles.button} onClick={() => navigate('/member-dashboard/view/billnotification')}>
           View Bill Notifications
